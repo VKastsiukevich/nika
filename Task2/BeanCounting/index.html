@@ -20,12 +20,8 @@
     }
 
     function countBs(string) {
-       var b = 0;
-    for (var i = 0; i < string.length; i++) {
-      if (string.charAt(i) == "B") {
-        b++;
-      }
-    }
+   
+      b = countChar(string, "B");
     //console.log(b);
     return b;
     }
