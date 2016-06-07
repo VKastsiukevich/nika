@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="libs.js"></script>
+ 
+</head>
+<body>
+
+<script>
+	function range(start, end, step) {
+  	var array = [];		
+
+    if (!step) step = 1;
+
+    if (step < 0) {
+      var tmp = end;
+      end = start;
+      start = tmp;
+      step = step * (-1);
+      var reverse = true;
+    }
+	   		
+ 		for (var i = start; i <= end;) {
+ 			array.push(i);
+ 			i = i+step; 				
+		}
+		if (!reverse) return array;
+			else return array.reverse();
+ 	  }
+
+
+		function sum(array) {
+			var sum = 0;
+			array.forEach(function(array){
+				sum = sum + array;
+			}
+			)
+		console.log(sum);
+		return sum;
+		}
+  </script>
+
+   <script src="test.js"></script>
+</body>
+</html>
