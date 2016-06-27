@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="libs.js"></script>
+ 
+</head>
+<body>
+
+  <script>
+
+   //var vectLength = 0;
+   var Vector = function(x, y) {
+  	this.x = x;
+  	this.y = y;
+  };
+
+  Vector.prototype.plus = function (vector2){
+  		var Vector3 = new Vector (vector2.x + this.x, vector2.y + this.y);
+  		return Vector3;
+  };
+   Vector.prototype.minus = function (vector2){
+		var Vector3 = new Vector (this.x - vector2.x, this.y - vector2.y);
+  		return Vector3;
+  };
+
+  Object.defineProperty(Vector.prototype, "length",
+  						{
+ 						get: function(){
+  								var vectLength;
+  								vectLength = Math.sqrt(this.x*this.x + this.y*this.y);
+  								return vectLength;
+  							}
+  						}
+  						);
+
+console.log(new Vector(1, 2).plus(new Vector(2, 3))); // → Vector{x: 3, y: 5}
+console.log(new Vector(1, 2).minus(new Vector(2, 3))); // → Vector{x: -1, y: -1}
+console.log(new Vector(3, 4).length); // → 5
+    
+  </script>
+
+   <script src="test.js"></script>
+</body>
+</html>
