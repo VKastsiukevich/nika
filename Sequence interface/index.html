@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+</head>
+<body>
+
+  <script>
+var ArraySeq = function(array){
+	this.array=array;
+	this.value = 0;
+	this.iter = 0;
+};
+
+ArraySeq.prototype.current = function(){
+	return this.value;
+};
+ArraySeq.prototype.next = function(){
+	if (this.iter< this.array.length){
+		this.value = this.array[this.iter];
+		this.iter++;
+		return this.value;
+	};
+};
+
+var RangeSeq = function (from,to){
+	this.from = from;
+	this.to = to;
+	this.value = 0;
+	this.iter = 0;
+};
+RangeSeq.prototype.current = function(){
+	return this.value;
+};
+
+RangeSeq.prototype.next = function(){
+	if (this.iter <= this.to){
+		this.value = this.from++;
+		return this.value;
+	};
+};
+
+var logFive = function(sequence){
+	for (var i = 0; i < 5; i++){
+		if(!sequence.next()) break;
+		console.log(sequence.current());
+	};
+};
+
+logFive(new ArraySeq([1, 2]));
+// → 1
+// → 2
+logFive(new RangeSeq(100, 1000));
+// → 100
+// → 101
+// → 102
+// → 103
+// → 104
+
+  </script>
+
+   
+</body>
+</html>
