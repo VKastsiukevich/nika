@@ -1,0 +1,34 @@
+<!doctype html>
+
+<style>
+  .trail { /* className for the trail elements */
+    position: absolute;
+    height: 6px; width: 6px;
+    border-radius: 3px;
+    background: teal;
+  }
+  body {
+    height: 300px;
+  }
+</style>
+
+<body>
+<script>
+  var array = [];
+  var current= 0;
+  var n = 0;
+  for (var i = 0; i < 10; i++) {
+    var div = document.createElement("div");
+    div.className = "trail";
+    document.body.appendChild(div);
+    array.push(div);
+  }
+  document.addEventListener("mousemove", function(event) {
+    var div = array[current];
+    div.style.left = (event.clientX) + "px";
+    div.style.top = (event.clientY) + "px";
+    current++;
+    current = current % 10;
+  });
+</script>
+</body>
