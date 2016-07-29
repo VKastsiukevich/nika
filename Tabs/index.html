@@ -1,0 +1,57 @@
+<!doctype html>
+
+<div id="wrapper">
+  <div data-tabname="one">Tab one</div>
+  <div data-tabname="two">Tab two</div>
+  <div data-tabname="three">Tab three</div>
+</div>
+<script>
+function asTabs(node) {
+  	if (node.hasChildNodes) {
+    	var children = [],
+        	tabs = [];
+    	for (var i = 0; i < node.childNodes.length; i++) {
+     		if (node.childNodes[i].nodeType == 1) {
+       			children.push(node.childNodes[i]);
+     		}
+    	}
+    	var tabList = document.createElement('div');
+    		for (var i = 0; i < children.length; i++) {
+    			var tab = {},
+          		button = document.createElement('button'),
+          		label = document.createTextNode(children[i].dataset.tabname);
+      		 	button.appendChild(label);
+      			tabList.appendChild(button);
+      			tab.node = children[i];
+     			tab.button = button;
+    			tabs.push(tab);
+    		}
+    	node.insertBefore(tabList, node.childNodes[0]);
+
+    	function hide() {
+    		tabs.forEach(function(tab){
+        		tab.node.style.display = 'none';
+    		})
+    	}
+    	hide();
+    	tabs.forEach(function(tab){
+	    	tab.button.addEventListener('click', function(event) {
+    	    	hide();
+        		event.preventDefault();
+        		tab.node.style.display = 'block';
+      		});
+    	});
+    	tabs.forEach(function(tab){
+      		tab.button.addEventListener('focus', function(event) {
+        		tab.button.style.borderColor="#00FF00";
+      		});
+    	});
+    	tabs.forEach(function(tab){
+      		tab.button.addEventListener('blur', function(event) {
+        		tab.button.style.borderColor= '';
+      		});
+    	});
+  	}
+	}
+ asTabs(document.querySelector("#wrapper"));
+</script>
