@@ -1,0 +1,64 @@
+<!doctype html>
+<script src="15_game.js"></script>
+<script src="game_levels.js"></script>
+<script src="16_canvas.js"></script>
+
+<canvas width="600" height="200"></canvas>
+<script>
+  var cx = document.querySelector("canvas").getContext("2d");
+
+  var cx = document.querySelector("canvas").getContext("2d");
+  function parallelogram(x, y) {
+    cx.beginPath();
+    cx.moveTo(x, y);
+    cx.lineTo(x + 100, y);
+    cx.lineTo(x + 120, y + 100);
+    cx.lineTo(x - 20, y + 100);
+    cx.closePath();
+    cx.stroke();
+  }
+  parallelogram(50, 50);
+  function diamond(x, y) {
+    cx.translate(x + 35, y + 35);
+    cx.rotate(Math.PI / 4);
+    cx.fillStyle = "red";
+    cx.fillRect(-20, -20, 60, 60);
+    cx.resetTransform();
+  }
+  diamond(200, 50);
+  function zigzag(x, y) {
+    cx.beginPath();
+    cx.moveTo(x, y);
+    for (var i = 0; i < 8; i++) {
+		cx.lineTo(x + 80, y + i * 12 + 4);
+		cx.lineTo(x, y + i * 12 + 8);
+    }
+    cx.stroke();
+  }
+  zigzag(300, 50);
+  function spiral(x, y) {
+    var radius = 50, xCenter = x + radius, yCenter = y + radius;
+    cx.beginPath();
+    cx.moveTo(xCenter, yCenter);
+    for (var i = 0; i < 200; i++) {
+		var angle = i * Math.PI / 30;
+		var dist = radius * i / 300;
+		cx.lineTo(xCenter + Math.cos(angle) * dist, yCenter + Math.sin(angle) * dist);
+    }
+    cx.stroke();
+  }
+  spiral(380, 50);
+  function star(x, y) {
+    var radius = 50, xCenter = x + radius, yCenter = y + radius;
+    cx.beginPath();
+    cx.moveTo(xCenter + radius, yCenter);
+    for (var i = 1; i <= 8; i++) {
+    	var angle = i * Math.PI / 4;
+    	cx.quadraticCurveTo(xCenter, yCenter, xCenter + Math.cos(angle) * radius, yCenter + Math.sin(angle) * radius);
+    }
+    cx.fillStyle = "gold";
+    cx.fill();
+  }
+  star(500, 50);
+</script>
+
