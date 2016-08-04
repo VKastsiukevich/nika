@@ -1,0 +1,56 @@
+<!doctype html>
+<script src="promise.js"></script>
+
+<input type="text" id="field">
+<div id="suggestions" style="cursor: pointer"></div>
+
+<script>
+  
+	var arr = ['alert', 'document', 'scrollTo'];
+	for (var name in window)
+		arr.push(name);
+	var field = document.querySelector('#field');
+	// console.log(field);
+	var suggestions = document.querySelector('#suggestions');
+	// console.log(suggestions);
+	field.addEventListener("focus", function () {showHints(arr);});
+	field.addEventListener("keyup", getString);
+	suggestions.addEventListener("click", addValue);
+	suggestions.addEventListener("click", clear);
+	function addValue(event) {
+		field.value = event.target.innerText;
+		removeElement();
+	}
+	function clear(event){
+		suggestions.style.display = "none";
+	}
+	function getString(){
+		var filtered = [];
+		for (var i = 0; i < arr.length; i++) {
+			var tmp = arr[i].toUpperCase();	  		
+			if (tmp.indexOf(field.value.toUpperCase()) == 0) {	    		
+				filtered.push(arr[i]);
+			}
+		}
+		filtered = filtered.filter(function(item, pos) {
+			return filtered.indexOf(item) == pos;
+		})
+		showHints(filtered);
+	}
+	function showHints(filtered) {
+		suggestions.style.display = "block";
+		suggestions.innerHTML = "";
+		if(field.value ==""){
+			clear();
+		}
+		else {
+			for (var i = 0; i < filtered.length; i++) {
+				var current = filtered[i];
+				var item = document.createElement("p");
+				var term = document.createTextNode(current);		      
+				suggestions.appendChild(item);	      	
+				item.appendChild(term);
+			}
+		}
+	}
+</script>
