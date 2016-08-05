@@ -6,30 +6,30 @@
 
 <script>
   
-	var arr = ['alert', 'document', 'scrollTo'];
+	var terms = ['alert', 'document', 'scrollTo'];
 	for (var name in window)
-		arr.push(name);
+		terms.push(name);
 	var field = document.querySelector('#field');
 	// console.log(field);
 	var suggestions = document.querySelector('#suggestions');
 	// console.log(suggestions);
-	field.addEventListener("focus", function () {showHints(arr);});
+	field.addEventListener("focus", function () {showHints(terms);});
 	field.addEventListener("keyup", getString);
 	suggestions.addEventListener("click", addValue);
 	suggestions.addEventListener("click", clear);
 	function addValue(event) {
 		field.value = event.target.innerText;
-		removeElement();
+		clear();
 	}
 	function clear(event){
 		suggestions.style.display = "none";
 	}
 	function getString(){
 		var filtered = [];
-		for (var i = 0; i < arr.length; i++) {
-			var tmp = arr[i].toUpperCase();	  		
+		for (var i = 0; i < terms.length; i++) {
+			var tmp = terms[i].toUpperCase();	  		
 			if (tmp.indexOf(field.value.toUpperCase()) == 0) {	    		
-				filtered.push(arr[i]);
+				filtered.push(terms[i]);
 			}
 		}
 		filtered = filtered.filter(function(item, pos) {
