@@ -1,0 +1,114 @@
+<!doctype html>
+
+
+<div id="grid"></div>
+<button id="next">Next generation</button>
+<button id="run">Auto run</button>
+
+<script>
+	var cells = [];
+	var arrSize = 10;
+
+	for (var i=0; i<arrSize; i++) {
+		for (var j=0; j<arrSize; j++) {
+			cells[(i)*arrSize+j]=false;	
+		}
+	}
+
+	var div = document.getElementsByTagName("div");
+
+	function draw(initialArray) {
+		var div = document.querySelector("div");
+		while (div.hasChildNodes()) {
+			div.removeChild(div.firstChild);
+		}
+		document.body.removeChild(div);
+		var div = document.createElement("div");
+	for (var i=0; i < arrSize; i++) {
+		for (var j = 0; j<arrSize; j++) {
+			var ch = document.createElement("INPUT");
+			ch.setAttribute("type", "checkbox");
+			var id;
+			id = i*arrSize+j;
+			ch.setAttribute("id", id);
+			if (initialArray[id] == true) ch.setAttribute("checked",true);
+			div.appendChild(ch);
+			document.body.appendChild (div);}
+		var br =document.createElement("br");
+		div.appendChild(br);
+		document.body.appendChild(div);
+	};
+	cells = initialArray;
+	checkboxClick();
+	return cells;
+	};
+
+	draw(cells);
+
+	var next = document.getElementById("next");
+	next.addEventListener("click", function (){
+		draw(generateNext(cells));	
+	})
+
+	function checkboxClick() {
+		var ch = document.getElementsByTagName("input");
+		for (var i=0; i<(arrSize*arrSize);i++) {
+			ch[i].addEventListener("click", function(event) {
+				if (cells[event.target.id] == true) {
+					cells[event.target.id] = false;
+				} else {
+					cells[event.target.id] = true;
+				}
+			});
+		}
+	}
+
+
+	var auto = document.getElementById("run");
+	run.addEventListener("click", function () {
+		var autoArr=[];
+		for (var i=0; i < arrSize; i++) {
+			for (var j=0; j<arrSize; j++) {
+				var value;
+				if (Math.random()<0.5) {
+					value=false;
+				} else {
+					value = true;
+				}
+				autoArr[i * arrSize + j] = value;	
+			}}
+		draw(autoArr);
+	})
+
+	function generateNext(array) {
+		var result=[];
+		array.forEach(function(elem, num) { 
+			var cnt = 0;
+
+			if ((num % arrSize)==(arrSize-1)) { 
+				if (array[num-1]) cnt++;
+				if (array[num-(arrSize+1)])  cnt++;
+				if (array[num+(arrSize-1)]) cnt++;
+			}
+			else if ((num % arrSize) == 0) {
+				if (array[num-(arrSize-1)]) cnt++;
+				if (array[num+1]) cnt++;
+				if (array[num+(arrSize+1)])  cnt++;	
+			}
+			else {
+				if (array[num-1]) cnt++;
+				if (array[num-(arrSize+1)])  cnt++;
+				if (array[num-(arrSize-1)]) cnt++;
+				if (array[num+1]) cnt++;
+				if (array[num+(arrSize+1)])  cnt++;
+				if (array[num+(arrSize-1)]) cnt++;	
+			};
+			if (array[num+arrSize]) cnt++;
+			if (array[num-arrSize]) cnt++;
+				if (cnt==3) {result[num]=true}
+				else 	{if ((elem) && (cnt == 2)) result[num]=true;
+						else result[num]=false};
+		})
+	return result;
+	}
+</script>
